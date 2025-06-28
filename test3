@@ -2,7 +2,7 @@ import smtplib
 from dotenv import load_dotenv
 import os
 from pathlib import Path
-env_path = Path(r"C:\Users\Kirill\OneDrive\Desktop\pyton_scripts") / 'pass.env'
+env_path = Path(__file__).parent / 'pass.env'
 load_dotenv(dotenv_path=env_path)
 
 email = os.getenv("EMAIL_USER")
@@ -12,9 +12,11 @@ password = os.getenv("EMAIL_PASSWORD")
 website = "https://dvmn.org/profession-ref-program/lazarev.k1996/YxjwF/"
 friend_name = "Fil Gaylove"
 my_name = "Kirill Love69"
+sender = 'devmanorg@yandex.ru'
+recipient = "filcher1908@gmail.com"
 
-letter = """From: {sender}
-To: {recipient}
+letter = """From: {s}
+To: {r}
 Subject: Приглашение!
 Content-Type: text/plain; charset="UTF-8"
 
@@ -34,9 +36,15 @@ Content-Type: text/plain; charset="UTF-8"
 
 Регистрируйся → {w}  
 На курсы, которые еще не вышли, можно подписаться и получить уведомление о релизе сразу на имейл.
-""".format(w=website, f=friend_name, m=my_name, sender="devmanorg@yandex.ru", recipient="filcher1908@gmail.com")
+""".format(w=website, f=friend_name, m=my_name, s=sender, r=recipient)
 
 letter = letter.encode("UTF-8")
+
+server = smtplib.SMTP_SSL('smtp.yandex.ru', 465)
+server.login(email, password)
+server.sendmail(sender, recipient, letter)
+server.quit()
+
 
 server = smtplib.SMTP_SSL('smtp.yandex.ru', 465)
 server.login(email, password)

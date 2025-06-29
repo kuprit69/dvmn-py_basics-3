@@ -48,5 +48,5 @@ server.quit()
 
 server = smtplib.SMTP_SSL('smtp.yandex.ru', 465)
 server.login(email, password)
-server.sendmail('devmanorg@yandex.ru', 'filcher1908@gmail.com', letter)
+server.sendmail(sender, recipient, letter)
 server.quit()
